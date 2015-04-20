@@ -15,6 +15,7 @@ public class ProjectActivity extends ActionBarActivity {
     private ListView listView;
     private String[] list = {"鉛筆","原子筆","鋼筆","毛筆","彩色筆"};
     private ArrayAdapter<String> listAdapter;
+    private int a = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
