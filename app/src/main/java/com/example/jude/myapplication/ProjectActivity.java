@@ -1,7 +1,10 @@
 package com.example.jude.myapplication;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,17 +13,26 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProjectActivity extends ActionBarActivity {
 
     private ListView listView;
-    private ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
-    HashMap<String,String> item1 = new HashMap<String,String>();
-    HashMap<String,String> item2 = new HashMap<String,String>();
+    private ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     private SimpleAdapter listAdapter;
-    private int a = 0;
+    private String serverUrl = "http://10.26.6.194:60576/PMS/api/AndroidApi/GetProjects";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,34 +41,11 @@ public class ProjectActivity extends ActionBarActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        item1.put("id","project1");
-        item1.put("name","專案一");
-        item1.put("member","Admin");
-        item1.put("loss","100000");
-        item1.put("priority","5");
-        item1.put("time","25天");
-        list.add(item1);
-
-        item2.put("id","project2");
-        item2.put("name","專案二");
-        item2.put("member","Admin");
-        item2.put("loss","10000");
-        item2.put("priority","2");
-        item2.put("time","50天");
-        list.add(item2);
+        new getProjects().execute(serverUrl);
 
 
-        listView = (ListView)findViewById(R.id.listProject);
-        listAdapter = new SimpleAdapter(this, list, R.layout.projectlist,
-                new String[]{"id", "name", "member", "loss", "priority", "time"},
-                new int[]{R.id.projectIdText, R.id.projectNameText, R.id.projectMainMemberText, R.id.projectLossText, R.id.projectPriorityText, R.id.projectTimeText});
-        listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-            }
-        });
+        listView = (ListView) findViewById(R.id.listProject);
+
     }
 
     @Override
@@ -79,5 +68,74 @@ public class ProjectActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class getProjects extends AsyncTask<String, Void, Void> {
+
+
+        private String error;
+        String data = "";
+        private ProgressDialog dialog = new ProgressDialog(ProjectActivity.this);
+
+        protected void onPreExecute(){
+            dialog.setMessage("Please wait..");
+            dialog.show();
+
+        }
+
+        protected void onPostExecute(Void unused){
+            dialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            BufferedReader reader = null;
+            JSONObject object = null;
+            try {
+                HttpClient client = new DefaultHttpClient();
+                URL url = new URL(params[0]);
+                HttpGet get = new HttpGet(String.valueOf(url));
+                HttpResponse response = client.execute(get);
+                HttpEntity resEntity = response.getEntity();
+                String a = EntityUtils.toString(resEntity);
+                object = new JSONObject(a);
+                Log.d("Test", object.toString());
+                JSONArray array = new JSONArray(object.getString("Message"));
+                for(int i = 0; i < array.length(); i++){
+                    HashMap<String, String> item = new HashMap<String, String>();
+                    item.put("id", array.getJSONObject(i).getString("id"));
+                    item.put("name", array.getJSONObject(i).getString("name"));
+                    item.put("member", array.getJSONObject(i).getString("member"));
+                    item.put("loss", array.getJSONObject(i).getString("loss"));
+                    item.put("priority", array.getJSONObject(i).getString("priority"));
+                    item.put("time", array.getJSONObject(i).getString("time"));
+                    list.add(item);
+                }
+                listAdapter = new SimpleAdapter(ProjectActivity.this, list, R.layout.projectlist,
+                        new String[]{"id", "name", "member", "loss", "priority", "time"},
+                        new int[]{R.id.projectIdText, R.id.projectNameText, R.id.projectMainMemberText, R.id.projectLossText, R.id.projectPriorityText, R.id.projectTimeText});
+                listView.setAdapter(listAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } catch (Exception ex) {
+                error = ex.getMessage();
+                Log.d("ProjectActivity Error",error);
+            } finally {
+                try {
+                    reader.close();
+                }
+                catch (Exception ex){}
+            }
+
+
+//            Log.d("Test", Integer.toString(b));
+            return null;
+        }
+
     }
 }
