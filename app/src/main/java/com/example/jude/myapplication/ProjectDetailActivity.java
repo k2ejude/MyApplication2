@@ -47,6 +47,8 @@ public class ProjectDetailActivity extends ActionBarActivity {
 
         LineData data = new LineData(xVals, dataSets);
         chart.setData(data);
+        chart.setDescription("Test MPAndroidCharts");
+        chart.setDrawGridBackground(true);
         chart.invalidate();
     }
 
