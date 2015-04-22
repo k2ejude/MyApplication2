@@ -1,6 +1,7 @@
 package com.example.jude.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -118,7 +118,9 @@ public class ProjectActivity extends ActionBarActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.setClass(ProjectActivity.this, ProjectDetailActivity.class);
+                        startActivity(intent);
                     }
                 });
 
