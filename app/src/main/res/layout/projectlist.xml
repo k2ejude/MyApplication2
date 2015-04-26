@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectNameText"
+        android:id="@+id/projectMemberText"
         android:layout_weight="1.0"
         android:layout_toRightOf="@+id/projectName" />
 
@@ -72,7 +72,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/projectLossText"
         android:layout_weight="1.0"
-        android:layout_below="@+id/projectNameText"
+        android:layout_below="@+id/projectMemberText"
         android:layout_toRightOf="@+id/projectLoss" />
 
     <TextView

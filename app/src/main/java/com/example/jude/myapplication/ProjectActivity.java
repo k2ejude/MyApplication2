@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -99,7 +100,7 @@ public class ProjectActivity extends ActionBarActivity {
                 HttpEntity resEntity = response.getEntity();
                 String a = EntityUtils.toString(resEntity);
                 object = new JSONObject(a);
-                Log.d("Test", object.toString());
+//                Log.d("Test", object.toString());
                 JSONArray array = new JSONArray(object.getString("Message"));
                 for(int i = 0; i < array.length(); i++){
                     HashMap<String, String> item = new HashMap<String, String>();
@@ -113,12 +114,17 @@ public class ProjectActivity extends ActionBarActivity {
                 }
                 listAdapter = new SimpleAdapter(ProjectActivity.this, list, R.layout.projectlist,
                         new String[]{"id", "name", "member", "loss", "priority", "time"},
-                        new int[]{R.id.projectIdText, R.id.projectNameText, R.id.projectMainMemberText, R.id.projectLossText, R.id.projectPriorityText, R.id.projectTimeText});
+                        new int[]{R.id.projectIdText, R.id.projectMemberText, R.id.projectMainMemberText, R.id.projectLossText, R.id.projectPriorityText, R.id.projectTimeText});
                 listView.setAdapter(listAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        TextView id = (TextView)view.findViewById(R.id.projectIdText);
+//                        Log.d("Test",id.getText().toString());
                         Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", id.getText().toString());
+                        intent.putExtras(bundle);
                         intent.setClass(ProjectActivity.this, ProjectDetailActivity.class);
                         startActivity(intent);
                     }
@@ -127,13 +133,7 @@ public class ProjectActivity extends ActionBarActivity {
             } catch (Exception ex) {
                 error = ex.getMessage();
                 Log.d("ProjectActivity Error",error);
-            } finally {
-                try {
-                    reader.close();
-                }
-                catch (Exception ex){}
             }
-
 
 //            Log.d("Test", Integer.toString(b));
             return null;

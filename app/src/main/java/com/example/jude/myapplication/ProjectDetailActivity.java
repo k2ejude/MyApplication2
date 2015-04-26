@@ -1,21 +1,36 @@
 package com.example.jude.myapplication;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by jude on 2015/4/22.
- */
 public class ProjectDetailActivity extends ActionBarActivity {
+
+    String id = "";
+    private String serverUrl = "http://10.26.6.194:60576/PMS/api/AndroidApi/GetProjectDetail/";
+    TextView projectIdText,projectNameText,projectMemberText,projectPriorityText,projectStartTimeText,projectEndTimeText,projectFacilityText,projectOtherText,projectIncomeText,projectLossText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +39,13 @@ public class ProjectDetailActivity extends ActionBarActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        getView();
+
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
+        serverUrl = serverUrl+id;
+
+        new getProjectDetail().execute(serverUrl);
         LineChart chart = (LineChart)findViewById(R.id.chart);
         ArrayList<Entry> valsComp1 = new ArrayList<Entry>();
         ArrayList<Entry> valsComp2 = new ArrayList<Entry>();
@@ -73,5 +95,69 @@ public class ProjectDetailActivity extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getView()
+    {
+        projectIdText = (TextView)findViewById(R.id.projectIdText);
+        projectNameText = (TextView)findViewById(R.id.projectNameText);
+        projectMemberText = (TextView)findViewById(R.id.projectMemberText);
+        projectPriorityText = (TextView)findViewById(R.id.projectPriorityText);
+        projectStartTimeText = (TextView)findViewById(R.id.projectStartTimeText);
+        projectEndTimeText = (TextView)findViewById(R.id.projectEndTimeText);
+        projectFacilityText = (TextView)findViewById(R.id.projectFacilityText);
+        projectOtherText = (TextView)findViewById(R.id.projectOtherText);
+        projectIncomeText = (TextView)findViewById(R.id.projectIncomeText);
+        projectLossText = (TextView)findViewById(R.id.projectLossText);
+    }
+
+    private class getProjectDetail extends AsyncTask<String, Void, Void> {
+        private String error;
+        String data = "";
+        private ProgressDialog dialog = new ProgressDialog(ProjectDetailActivity.this);
+
+        protected void onPreExecute(){
+            dialog.setMessage("Please wait..");
+            dialog.show();
+
+        }
+
+        protected void onPostExecute(Void unused){
+            dialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            BufferedReader reader = null;
+            JSONObject object = null;
+            try {
+                HttpClient client = new DefaultHttpClient();
+                URL url = new URL(params[0]);
+                HttpGet get = new HttpGet(String.valueOf(url));
+                HttpResponse response = client.execute(get);
+                HttpEntity resEntity = response.getEntity();
+                String a = EntityUtils.toString(resEntity);
+                object = new JSONObject(a);
+                JSONObject projectDetail = new JSONObject(object.getString("Message"));
+                Log.d("Test", projectDetail.getString("id").toString());
+                projectIdText.setText(projectDetail.getString("id").toString());
+                projectNameText.setText(projectDetail.getString("name").toString());
+                projectMemberText.setText(projectDetail.getString("member").toString());
+                projectPriorityText.setText(projectDetail.getString("priority").toString());
+                projectStartTimeText.setText(projectDetail.getString("startTime").toString());
+                projectEndTimeText.setText(projectDetail.getString("endTime").toString());
+                projectFacilityText.setText(projectDetail.getString("facility").toString());
+                projectOtherText.setText(projectDetail.getString("other").toString());
+                projectIncomeText.setText(projectDetail.getString("income").toString());
+                projectLossText.setText(projectDetail.getString("loss").toString());
+            } catch (Exception ex) {
+                error = ex.getMessage();
+                Log.d("ProjectActivity Error",error);
+            }
+
+//            Log.d("Test", Integer.toString(b));
+            return null;
+        }
+
     }
 }
