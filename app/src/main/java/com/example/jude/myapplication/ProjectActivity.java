@@ -52,7 +52,7 @@ public class ProjectActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_project, menu);
         return true;
     }
 
@@ -100,7 +100,6 @@ public class ProjectActivity extends ActionBarActivity {
                 HttpEntity resEntity = response.getEntity();
                 String a = EntityUtils.toString(resEntity);
                 object = new JSONObject(a);
-//                Log.d("Test", object.toString());
                 JSONArray array = new JSONArray(object.getString("Message"));
                 for(int i = 0; i < array.length(); i++){
                     HashMap<String, String> item = new HashMap<String, String>();

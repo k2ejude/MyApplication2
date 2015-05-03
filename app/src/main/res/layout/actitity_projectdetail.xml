@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#ffffbe96"
+        android:background="#ffffff"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
         android:layout_alignParentTop="true"
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/projectIdText"
-        android:layout_below="@+id/chart"
-        android:layout_toRightOf="@+id/projectId" />
+        android:layout_toRightOf="@+id/projectId"
+        android:layout_below="@+id/chart" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,16 +36,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="專案名稱:"
         android:id="@+id/projectName"
-        android:layout_below="@+id/chart"
-        android:layout_toRightOf="@+id/projectIdText" />
+        android:layout_toRightOf="@+id/projectIdText"
+        android:layout_below="@+id/chart" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/projectNameText"
-        android:layout_below="@+id/chart"
-        android:layout_toRightOf="@+id/projectName" />
+        android:layout_toRightOf="@+id/projectName"
+        android:layout_below="@+id/chart" />
 
     <TextView
         android:layout_width="wrap_content"
