@@ -3,6 +3,7 @@ package com.example.jude.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +20,19 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         project = (ImageView)findViewById(R.id.project);
+        projextText = (TextView)findViewById(R.id.projectText);
         analysis = (ImageView)findViewById(R.id.analysis);
+
+        projextText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, ProjectActivity.class);
+                startActivity(intent);
+            }
+        });
 
         project.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +42,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
     }
 
 
@@ -49,9 +59,15 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings1) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, ProjectActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if( id == R.id.action_settings2){
+            Log.d("Test","analysis");
             return true;
         }
 

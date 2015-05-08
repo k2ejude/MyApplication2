@@ -17,8 +17,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProjectActivity"></activity>
-        <activity android:name=".ProjectDetailActivity"></activity>
+        <activity android:name=".ProjectActivity" android:parentActivityName="com.example.jude.myapplication.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jude.myapplication.MainActivity" />
+        </activity>
+        <activity android:name=".ProjectDetailActivity" android:parentActivityName="com.example.jude.myapplication.ProjectActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jude.myapplication.ProjectActivity" />
+        </activity>
     </application>
 
 </manifest>
