@@ -9,10 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +31,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
     String id = "";
     private String serverUrl = "http://10.26.6.194:60576/PMS/api/AndroidApi/GetProjectDetail/";
     TextView projectIdText,projectNameText,projectMemberText,projectPriorityText,projectStartTimeText,projectEndTimeText,projectFacilityText,projectOtherText,projectIncomeText,projectLossText;
-    BarChart chart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,30 +46,30 @@ public class ProjectDetailActivity extends ActionBarActivity {
         serverUrl = serverUrl+id;
 
         new getProjectDetail().execute(serverUrl);
-
-        ArrayList<BarEntry> valsComp1 = new ArrayList<BarEntry>();
-
-        BarEntry c1e1 = new BarEntry(100.000f, 0); // 0 == quarter 1
-        BarEntry c1e2 = new BarEntry(100.000f, 1); // 0 == quarter 1
-        BarEntry c1e3 = new BarEntry(100.000f, 2); // 0 == quarter 1
-        BarEntry c1e4 = new BarEntry(100.000f, 3); // 0 == quarter 1
-
+        LineChart chart = (LineChart)findViewById(R.id.chart);
+        ArrayList<Entry> valsComp1 = new ArrayList<Entry>();
+        ArrayList<Entry> valsComp2 = new ArrayList<Entry>();
+        Entry c1e1 = new Entry(100.000f, 0); // 0 == quarter 1
         valsComp1.add(c1e1);
+        Entry c1e2 = new Entry(50.000f, 1); // 1 == quarter 2 ...
         valsComp1.add(c1e2);
-        valsComp1.add(c1e3);
-        valsComp1.add(c1e4);
-
-        BarDataSet setComp1 = new BarDataSet(valsComp1, "成本");
-
-        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        Entry c2e1 = new Entry(120.000f, 0); // 0 == quarter 1
+        valsComp2.add(c2e1);
+        Entry c2e2 = new Entry(110.000f, 1); // 1 == quarter 2 ...
+        valsComp2.add(c2e2);
+        LineDataSet setComp1 = new LineDataSet(valsComp1, "Company 1");
+        LineDataSet setComp2 = new LineDataSet(valsComp2, "Company 2");
+        ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(setComp1);
+        dataSets.add(setComp2);
 
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("固定成本"); xVals.add("其他成本"); xVals.add("預期收益"); xVals.add("預期損益");
+        xVals.add("1.Q"); xVals.add("2.Q"); xVals.add("3.Q"); xVals.add("4.Q");
 
 
-        BarData data = new BarData(xVals, dataSets);
+        LineData data = new LineData(xVals, dataSets);
         chart.setData(data);
+        chart.setDescription("Test MPAndroidCharts");
         chart.setDrawGridBackground(true);
         chart.invalidate();
     }
@@ -77,7 +77,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_project, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -109,7 +109,6 @@ public class ProjectDetailActivity extends ActionBarActivity {
         projectOtherText = (TextView)findViewById(R.id.projectOtherText);
         projectIncomeText = (TextView)findViewById(R.id.projectIncomeText);
         projectLossText = (TextView)findViewById(R.id.projectLossText);
-        chart = (BarChart) findViewById(R.id.chart);
     }
 
     private class getProjectDetail extends AsyncTask<String, Void, Void> {
@@ -140,6 +139,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
                 String a = EntityUtils.toString(resEntity);
                 object = new JSONObject(a);
                 JSONObject projectDetail = new JSONObject(object.getString("Message"));
+                Log.d("Test", projectDetail.getString("id").toString());
                 projectIdText.setText(projectDetail.getString("id").toString());
                 projectNameText.setText(projectDetail.getString("name").toString());
                 projectMemberText.setText(projectDetail.getString("member").toString());
@@ -150,37 +150,12 @@ public class ProjectDetailActivity extends ActionBarActivity {
                 projectOtherText.setText(projectDetail.getString("other").toString());
                 projectIncomeText.setText(projectDetail.getString("income").toString());
                 projectLossText.setText(projectDetail.getString("loss").toString());
-
-                ArrayList<BarEntry> valsComp1 = new ArrayList<BarEntry>();
-
-                BarEntry c1e1 = new BarEntry(Float.parseFloat(projectDetail.getString("facility")), 0); // 0 == quarter 1
-                BarEntry c1e2 = new BarEntry(Float.parseFloat(projectDetail.getString("other")), 1); // 0 == quarter 1
-                BarEntry c1e3 = new BarEntry(Float.parseFloat(projectDetail.getString("income")), 2); // 0 == quarter 1
-                BarEntry c1e4 = new BarEntry(Float.parseFloat(projectDetail.getString("loss")), 3); // 0 == quarter 1
-
-                valsComp1.add(c1e1);
-                valsComp1.add(c1e2);
-                valsComp1.add(c1e3);
-                valsComp1.add(c1e4);
-
-                BarDataSet setComp1 = new BarDataSet(valsComp1, "成本");
-
-                ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-                dataSets.add(setComp1);
-
-                ArrayList<String> xVals = new ArrayList<String>();
-                xVals.add("固定成本"); xVals.add("其他成本"); xVals.add("預期收益"); xVals.add("預期損益");
-
-
-                BarData data = new BarData(xVals, dataSets);
-                chart.setData(data);
-                chart.setDrawGridBackground(true);
-                chart.invalidate();
             } catch (Exception ex) {
                 error = ex.getMessage();
                 Log.d("ProjectActivity Error",error);
             }
 
+//            Log.d("Test", Integer.toString(b));
             return null;
         }
 
