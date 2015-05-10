@@ -1,115 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="專案代號:"
-        android:id="@+id/projectId"
-        android:layout_weight="1.0" />
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="專案代號:"
+            android:id="@+id/projectId"
+            android:layout_weight="1.0" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectIdText"
-        android:layout_weight="1.0"
-        android:layout_alignParentLeft="false"
-        android:layout_toRightOf="@+id/projectId" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/projectIdText"
+            android:layout_weight="1.0"
+            android:layout_alignParentLeft="false"
+            android:layout_toRightOf="@+id/projectId" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="專案名稱:"
-        android:id="@+id/projectName"
-        android:layout_weight="1.0"
-        android:layout_toRightOf="@+id/projectIdText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="專案名稱:"
+            android:id="@+id/projectName"
+            android:layout_weight="1.0"
+            android:layout_toRightOf="@+id/projectIdText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectMemberText"
-        android:layout_weight="1.0"
-        android:layout_toRightOf="@+id/projectName" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/projectMemberText"
+            android:layout_weight="1.0"
+            android:layout_toRightOf="@+id/projectName" />
+    </TableRow>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="負責人:"
-        android:id="@+id/projectMainMember"
-        android:layout_weight="1.0"
-        android:layout_below="@+id/projectId" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectMainMemberText"
-        android:layout_weight="1.0"
-        android:layout_toRightOf="@+id/projectMainMember"
-        android:layout_below="@+id/projectIdText" />
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="專案損益:"
-        android:id="@+id/projectLoss"
-        android:layout_weight="1.0"
-        android:autoText="false"
-        android:layout_alignTop="@+id/projectLossText"
-        android:layout_toEndOf="@+id/projectIdText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="負責人:"
+            android:id="@+id/projectMainMember"
+            android:layout_weight="1.0"
+            android:layout_below="@+id/projectId" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectLossText"
-        android:layout_weight="1.0"
-        android:layout_below="@+id/projectMemberText"
-        android:layout_toRightOf="@+id/projectLoss" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/projectMainMemberText"
+            android:layout_weight="1.0"
+            android:layout_toRightOf="@+id/projectMainMember"
+            android:layout_below="@+id/projectIdText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="優先權:"
-        android:id="@+id/projectPriority"
-        android:layout_weight="1.0"
-        android:layout_below="@+id/projectMainMember" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="專案損益:"
+            android:id="@+id/projectLoss"
+            android:layout_weight="1.0"
+            android:autoText="false"
+            android:layout_alignTop="@+id/projectLossText"
+            android:layout_toEndOf="@+id/projectIdText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectPriorityText"
-        android:layout_weight="1.0"
-        android:layout_below="@+id/projectMainMemberText"
-        android:layout_toRightOf="@+id/projectPriority" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/projectLossText"
+            android:layout_weight="1.0"
+            android:layout_below="@+id/projectMemberText"
+            android:layout_toRightOf="@+id/projectLoss" />
+    </TableRow>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="剩餘天數:"
-        android:id="@+id/projectTime"
-        android:layout_weight="1.0"
-        android:layout_below="@+id/projectLoss"
-        android:layout_alignStart="@+id/projectLoss" />
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/projectTimeText"
-        android:layout_weight="1.0"
-        android:layout_below="@+id/projectLossText"
-        android:layout_toRightOf="@+id/projectTime" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="優先權:"
+            android:id="@+id/projectPriority"
+            android:layout_weight="1.0"
+            android:layout_below="@+id/projectMainMember" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/projectPriorityText"
+            android:layout_weight="1.0"
+            android:layout_below="@+id/projectMainMemberText"
+            android:layout_toRightOf="@+id/projectPriority" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="剩餘天數:"
+            android:id="@+id/projectTime"
+            android:layout_weight="1.0"
+            android:layout_below="@+id/projectLoss"
+            android:layout_alignStart="@+id/projectLoss" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/projectTimeText"
+            android:layout_weight="1.0"
+            android:layout_below="@+id/projectLossText"
+            android:layout_toRightOf="@+id/projectTime" />
+    </TableRow>
+
+</TableLayout >

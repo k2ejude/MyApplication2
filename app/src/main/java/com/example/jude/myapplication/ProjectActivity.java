@@ -129,10 +129,9 @@ public class ProjectActivity extends ActionBarActivity {
 
             } catch (Exception ex) {
                 error = ex.getMessage();
-                Log.d("ProjectActivity Error",error);
+                Log.e("ProjectActivity Error",error);
             }
 
-//            Log.d("Test", Integer.toString(b));
             return null;
         }
 
