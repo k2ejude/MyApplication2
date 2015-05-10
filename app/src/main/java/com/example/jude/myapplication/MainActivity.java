@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
         project = (ImageView)findViewById(R.id.project);
         projextText = (TextView)findViewById(R.id.projectText);
         analysis = (ImageView)findViewById(R.id.analysis);
+        analysisText = (TextView)findViewById(R.id.analysisText);
 
         projextText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +40,24 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, ProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        analysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AnalysisActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        analysisText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AnalysisActivity.class);
                 startActivity(intent);
             }
         });
