@@ -33,7 +33,7 @@ public class ProjectActivity extends ActionBarActivity {
     private ListView listView;
     private ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     private SimpleAdapter listAdapter;
-    private String serverUrl = "http://10.26.6.194:60576/PMS/api/AndroidApi/GetProjects";
+    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetProjects";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
