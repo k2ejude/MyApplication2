@@ -117,7 +117,6 @@ public class AnalysisActivity extends ActionBarActivity {
                         intent.putExtras(bundle);
 //                        intent.setClass(AnalysisActivity.this, ProjectDetailActivity.class);
 //                        startActivity(intent);
-                        String a = "AAAA";
                     }
                 });
 
