@@ -4,6 +4,6 @@
     tools:context="com.example.jude.myapplication.AnalysisActivity">
     <item android:id="@+id/action_settings1" android:title="@string/menu_settings" android:icon="@mipmap/ic_launcher"
         app:showAsAction="ifRoom" />
-    <!--<item android:id="@+id/action_new" android:title="@string/menu_settings" android:icon="@mipmap/ic_new"-->
-        <!--app:showAsAction="ifRoom" />-->
+    <item android:id="@+id/action_new" android:title="@string/menu_settings" android:icon="@mipmap/ic_new"
+        app:showAsAction="ifRoom" />
 </menu>
