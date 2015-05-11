@@ -15,10 +15,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/projectIdText"
             android:layout_weight="1.0"
-            android:layout_alignParentLeft="false"
             android:layout_toRightOf="@+id/projectId" />
 
         <TextView
@@ -33,9 +32,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/projectMemberText"
-            android:layout_weight="1.0"
+            android:layout_weight="2.0"
             android:layout_toRightOf="@+id/projectName" />
     </TableRow>
 
@@ -56,14 +55,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/projectMainMemberText"
             android:layout_weight="1.0"
             android:layout_toRightOf="@+id/projectMainMember"
             android:layout_below="@+id/projectIdText" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案損益:"
@@ -76,11 +75,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/projectLossText"
-            android:layout_weight="1.0"
+            android:layout_weight="2.0"
             android:layout_below="@+id/projectMemberText"
             android:layout_toRightOf="@+id/projectLoss" />
+
     </TableRow>
 
     <TableRow
@@ -99,7 +99,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/projectPriorityText"
             android:layout_weight="1.0"
             android:layout_below="@+id/projectMainMemberText"
@@ -118,11 +118,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/projectTimeText"
-            android:layout_weight="1.0"
+            android:layout_weight="2.0"
             android:layout_below="@+id/projectLossText"
             android:layout_toRightOf="@+id/projectTime" />
+
     </TableRow>
 
 </TableLayout >
