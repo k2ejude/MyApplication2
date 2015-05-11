@@ -18,7 +18,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -37,7 +36,7 @@ public class ProjectActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        new getProjects().execute(serverUrl);
+        new getProjects().execute();
 
 
         listView = (ListView) findViewById(R.id.listProject);
@@ -68,7 +67,6 @@ public class ProjectActivity extends ActionBarActivity {
 
     private class getProjects extends AsyncTask<String, Void, Void> {
 
-
         private String error;
         String data = "";
         private ProgressDialog dialog = new ProgressDialog(ProjectActivity.this);
@@ -85,11 +83,9 @@ public class ProjectActivity extends ActionBarActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-            BufferedReader reader = null;
-            JSONObject object = null;
             try {
                 DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet get = new HttpGet(params[0]);
+                HttpGet get = new HttpGet(serverUrl);
                 HttpResponse response = client.execute(get);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer result = new StringBuffer();
@@ -97,16 +93,16 @@ public class ProjectActivity extends ActionBarActivity {
                 while ((line = rd.readLine()) != null) {
                     result.append(line);
                 }
-                object = new JSONObject(result.toString());
-                JSONArray array = new JSONArray(object.getString("Message"));
-                for(int i = 0; i < array.length(); i++){
+                String str = result.toString();
+                JSONArray object = new JSONArray(str);
+                for(int i = 0; i < object.length(); i++){
                     HashMap<String, String> item = new HashMap<String, String>();
-                    item.put("id", array.getJSONObject(i).getString("id"));
-                    item.put("name", array.getJSONObject(i).getString("name"));
-                    item.put("member", array.getJSONObject(i).getString("member"));
-                    item.put("loss", array.getJSONObject(i).getString("loss"));
-                    item.put("priority", array.getJSONObject(i).getString("priority"));
-                    item.put("time", array.getJSONObject(i).getString("time"));
+                    item.put("id", object.getJSONObject(i).getString("id"));
+                    item.put("name", object.getJSONObject(i).getString("name"));
+                    item.put("member", object.getJSONObject(i).getString("member"));
+                    item.put("loss", object.getJSONObject(i).getString("loss"));
+                    item.put("priority", object.getJSONObject(i).getString("priority"));
+                    item.put("time", object.getJSONObject(i).getString("time"));
                     list.add(item);
                 }
                 listAdapter = new SimpleAdapter(ProjectActivity.this, list, R.layout.projectlist,

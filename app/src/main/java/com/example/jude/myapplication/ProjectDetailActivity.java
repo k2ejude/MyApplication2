@@ -40,7 +40,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
         id = bundle.getString("id");
         serverUrl = serverUrl+id;
 
-        new getProjectDetail().execute(serverUrl);
+        new getProjectDetail().execute();
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
             JSONObject object = null;
             try {
                 DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet get = new HttpGet(params[0]);
+                HttpGet get = new HttpGet(serverUrl);
                 HttpResponse response = client.execute(get);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer result = new StringBuffer();
@@ -111,25 +111,24 @@ public class ProjectDetailActivity extends ActionBarActivity {
                     result.append(line);
                 }
                 object = new JSONObject(result.toString());
-                JSONObject projectDetail = new JSONObject(object.getString("Message"));
-                projectIdText.setText(projectDetail.getString("id").toString());
-                projectNameText.setText(projectDetail.getString("name").toString());
-                projectMemberText.setText(projectDetail.getString("member").toString());
-                projectPriorityText.setText(projectDetail.getString("priority").toString());
-                projectStartTimeText.setText(projectDetail.getString("startTime").toString());
-                projectEndTimeText.setText(projectDetail.getString("endTime").toString());
-                projectFacilityText.setText(projectDetail.getString("facility").toString());
-                projectOtherText.setText(projectDetail.getString("other").toString());
-                projectIncomeText.setText(projectDetail.getString("income").toString());
-                projectLossText.setText(projectDetail.getString("loss").toString());
+                projectIdText.setText(object.getString("id").toString());
+                projectNameText.setText(object.getString("name").toString());
+                projectMemberText.setText(object.getString("member").toString());
+                projectPriorityText.setText(object.getString("priority").toString());
+                projectStartTimeText.setText(object.getString("startTime").toString());
+                projectEndTimeText.setText(object.getString("endTime").toString());
+                projectFacilityText.setText(object.getString("facility").toString());
+                projectOtherText.setText(object.getString("other").toString());
+                projectIncomeText.setText(object.getString("income").toString());
+                projectLossText.setText(object.getString("loss").toString());
 
                 ArrayList<BarEntry> valsComp1 = new ArrayList<BarEntry>();
 
                 Float facility = 0f,other = 0f, income = 0f,loss = 0f;
-                String facilityStr = projectDetail.getString("facility");
-                String otherStr = projectDetail.getString("other");
-                String icomeStr =  projectDetail.getString("income");
-                String lossStr = projectDetail.getString("loss");
+                String facilityStr = object.getString("facility");
+                String otherStr = object.getString("other");
+                String icomeStr =  object.getString("income");
+                String lossStr = object.getString("loss");
                 if(facilityStr != "null")
                     facility = Float.parseFloat(facilityStr);
                 if(otherStr != "null")
@@ -149,7 +148,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
                 valsComp1.add(c1e3);
                 valsComp1.add(c1e4);
 
-                BarDataSet setComp1 = new BarDataSet(valsComp1, projectDetail.getString("name").toString()+"成本");
+                BarDataSet setComp1 = new BarDataSet(valsComp1, object.getString("name").toString()+"成本");
 
                 ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
                 dataSets.add(setComp1);
