@@ -58,7 +58,11 @@ public class AnalysisActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings1) {
+        if (id == R.id.action_project) {
+            Intent intent = new Intent();
+            intent.setClass(AnalysisActivity.this, ProjectActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 
