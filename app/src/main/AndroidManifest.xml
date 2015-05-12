@@ -48,6 +48,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jude.myapplication.AnalysisActivity" />
         </activity>
+        <activity
+            android:name=".AnalysisCreate"
+            android:label="@string/title_activity_analysis_create"
+            android:parentActivityName=".AnalysisActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.jude.myapplication.AnalysisActivity" />
+        </activity>
     </application>
 
 </manifest>

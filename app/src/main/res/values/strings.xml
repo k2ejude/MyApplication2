@@ -10,4 +10,5 @@
     <string name="analysis">analysis</string>
     <string name="title_activity_analysis">AnalysisActivity</string>
     <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
+    <string name="title_activity_analysis_create">AnalysisCreate</string>
 </resources>

@@ -65,6 +65,12 @@ public class AnalysisActivity extends ActionBarActivity {
             finish();
             return true;
         }
+        else if(id == R.id.action_new){
+            Intent intent = new Intent();
+            intent.setClass(AnalysisActivity.this, AnalysisCreate.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
