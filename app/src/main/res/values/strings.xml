@@ -9,4 +9,5 @@
     <string name="menu_settings">Test Menu</string>
     <string name="analysis">analysis</string>
     <string name="title_activity_analysis">AnalysisActivity</string>
+    <string name="title_activity_analysis_detail">AnalysisDetailActivity</string>
 </resources>

@@ -105,8 +105,8 @@ public class AnalysisActivity extends ActionBarActivity {
                         Bundle bundle = new Bundle();
                         bundle.putString("id", id.getText().toString());
                         intent.putExtras(bundle);
-    //                        intent.setClass(AnalysisActivity.this, ProjectDetailActivity.class);
-    //                        startActivity(intent);
+                        intent.setClass(AnalysisActivity.this, AnalysisDetailActivity.class);
+                        startActivity(intent);
                     }
                 });
             } catch (JSONException e) {
