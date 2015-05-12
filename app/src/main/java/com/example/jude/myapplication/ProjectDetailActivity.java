@@ -1,6 +1,7 @@
 package com.example.jude.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -58,7 +60,11 @@ public class ProjectDetailActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings1) {
+        if (id == R.id.action_analysis) {
+            Intent intent = new Intent();
+            intent.setClass(ProjectDetailActivity.this, AnalysisActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 
@@ -81,7 +87,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
         chart = (BarChart) findViewById(R.id.chart);
     }
 
-    private class getProjectDetail extends AsyncTask<String, Void, Void> {
+    private class getProjectDetail extends AsyncTask<String, Void, String> {
         private String error;
         String data = "";
         private ProgressDialog dialog = new ProgressDialog(ProjectDetailActivity.this);
@@ -92,25 +98,10 @@ public class ProjectDetailActivity extends ActionBarActivity {
 
         }
 
-        protected void onPostExecute(Void unused){
-            dialog.dismiss();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            BufferedReader reader = null;
+        protected void onPostExecute(String str){
             JSONObject object = null;
             try {
-                DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet get = new HttpGet(serverUrl);
-                HttpResponse response = client.execute(get);
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer result = new StringBuffer();
-                String line = "";
-                while ((line = rd.readLine()) != null) {
-                    result.append(line);
-                }
-                object = new JSONObject(result.toString());
+                object = new JSONObject(str);
                 projectIdText.setText(object.getString("id").toString());
                 projectNameText.setText(object.getString("name").toString());
                 projectMemberText.setText(object.getString("member").toString());
@@ -161,6 +152,29 @@ public class ProjectDetailActivity extends ActionBarActivity {
                 chart.setData(data);
                 chart.setDrawGridBackground(true);
                 chart.invalidate();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            dialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            BufferedReader reader = null;
+            try {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet(serverUrl);
+                HttpResponse response = client.execute(get);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer result = new StringBuffer();
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result.append(line);
+                }
+                return result.toString();
+
             } catch (Exception ex) {
                 error = ex.getMessage();
                 Log.e("ProjectActivity Error",error);

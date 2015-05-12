@@ -79,14 +79,16 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings1) {
+        if (id == R.id.action_project) {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, ProjectActivity.class);
             startActivity(intent);
             return true;
         }
-        else if( id == R.id.action_settings2){
-            Log.d("Test","analysis");
+        else if( id == R.id.action_analysis){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, AnalysisActivity.class);
+            startActivity(intent);
             return true;
         }
 

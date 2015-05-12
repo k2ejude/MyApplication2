@@ -3,6 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_project">專案總覽</string>
+    <string name="action_analysis">專案分析</string>
     <string name="menu_settings">Test Menu</string>
     <string name="analysis">analysis</string>
     <string name="title_activity_analysis">AnalysisActivity</string>

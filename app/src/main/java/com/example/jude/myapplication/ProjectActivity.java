@@ -18,6 +18,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -58,14 +59,18 @@ public class ProjectActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings1) {
+        if (id == R.id.action_analysis) {
+            Intent intent = new Intent();
+            intent.setClass(ProjectActivity.this, AnalysisActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private class getProjects extends AsyncTask<String, Void, Void> {
+    private class getProjects extends AsyncTask<String, Void, String> {
 
         private String error;
         String data = "";
@@ -77,23 +82,8 @@ public class ProjectActivity extends ActionBarActivity {
 
         }
 
-        protected void onPostExecute(Void unused){
-            dialog.dismiss();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
+        protected void onPostExecute(String str){
             try {
-                DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet get = new HttpGet(serverUrl);
-                HttpResponse response = client.execute(get);
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                StringBuffer result = new StringBuffer();
-                String line = "";
-                while ((line = rd.readLine()) != null) {
-                    result.append(line);
-                }
-                String str = result.toString();
                 JSONArray object = new JSONArray(str);
                 for(int i = 0; i < object.length(); i++){
                     HashMap<String, String> item = new HashMap<String, String>();
@@ -113,7 +103,6 @@ public class ProjectActivity extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         TextView id = (TextView)view.findViewById(R.id.projectIdText);
-//                        Log.d("Test",id.getText().toString());
                         Intent intent = new Intent();
                         Bundle bundle = new Bundle();
                         bundle.putString("id", id.getText().toString());
@@ -122,6 +111,27 @@ public class ProjectActivity extends ActionBarActivity {
                         startActivity(intent);
                     }
                 });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            dialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet(serverUrl);
+                HttpResponse response = client.execute(get);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer result = new StringBuffer();
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result.append(line);
+                }
+                String str = result.toString();
+                return str;
+
 
             } catch (Exception ex) {
                 error = ex.getMessage();

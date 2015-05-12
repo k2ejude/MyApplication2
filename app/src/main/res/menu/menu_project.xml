@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".Project">
 
-    <item android:id="@+id/action_settings2" android:title="@string/menu_settings" android:icon="@mipmap/analysis"
+    <item android:id="@+id/action_analysis" android:title="@string/action_analysis" android:icon="@mipmap/analysis"
         app:showAsAction="ifRoom" />
 </menu>
