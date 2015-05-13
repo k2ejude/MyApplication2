@@ -2,15 +2,20 @@ package com.example.jude.myapplication;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class AnalysisCreate extends ActionBarActivity {
@@ -21,7 +26,6 @@ public class AnalysisCreate extends ActionBarActivity {
     private ArrayAdapter<String> priorityList;
     private Calendar calendar;
     private int sYear,sMonth,sDay,eYear,eMonth,eDay;
-    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class AnalysisCreate extends ActionBarActivity {
         incomeText = (EditText)findViewById(R.id.incomeText);
         remarkText = (EditText)findViewById(R.id.remarkText);
         priorityText = (Spinner)findViewById(R.id.priorityText);
+
         calendar = Calendar.getInstance();
         sYear = calendar.get(Calendar.YEAR);
         sMonth = calendar.get(Calendar.MONTH);
@@ -57,47 +62,57 @@ public class AnalysisCreate extends ActionBarActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    showDialog(0);
-                    datePickerDialog.updateDate(sYear,sMonth,sDay);
+                    DatePickerDialog dialog = new DatePickerDialog(AnalysisCreate.this,sdatePicker,sYear,sMonth,sDay);
+                    dialog.show();
                 }
             }
         });
         startTimeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(0);
-                datePickerDialog.updateDate(sYear,sMonth,sDay);
+                DatePickerDialog dialog = new DatePickerDialog(AnalysisCreate.this,sdatePicker,sYear,sMonth,sDay);
+                dialog.show();
             }
         });
 
         endTimeText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                showDialog(0);
-                datePickerDialog.updateDate(eYear,eMonth,eDay);
+                if(hasFocus){
+                    DatePickerDialog dialog = new DatePickerDialog(AnalysisCreate.this,edatePicker,eYear,eMonth,eDay);
+                    dialog.show();
+                }
             }
         });
         endTimeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(0);
-                datePickerDialog.updateDate(eYear,eMonth,eDay);
+                DatePickerDialog dialog = new DatePickerDialog(AnalysisCreate.this,edatePicker,eYear,eMonth,eDay);
+                dialog.show();
             }
         });
     }
 
-    private int iYear,iMonth,iDay;
-    protected Dialog onCreateDialog(int id){
-        datePickerDialog = new DatePickerDialog(AnalysisCreate.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                iYear = year;
-                iMonth = monthOfYear;
-                iDay = dayOfMonth;
-                startTimeText.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear)+"/"+String.valueOf(dayOfMonth));
-            }
-        },iYear,iMonth,iDay);
 
-        return datePickerDialog;
-    }
+    DatePickerDialog.OnDateSetListener sdatePicker = new DatePickerDialog.OnDateSetListener(){
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            sYear = year;
+            sMonth = monthOfYear;
+            sDay = dayOfMonth;
+            startTimeText.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear + 1)+"/"+String.valueOf(dayOfMonth));
+        }
+    };
+
+
+    DatePickerDialog.OnDateSetListener edatePicker = new DatePickerDialog.OnDateSetListener(){
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            eYear = year;
+            eMonth = monthOfYear;
+            eDay = dayOfMonth;
+            endTimeText.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear + 1)+"/"+String.valueOf(dayOfMonth));
+        }
+    };
+
 }
