@@ -3,14 +3,19 @@ package com.example.jude.myapplication;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputFilter;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -18,9 +23,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,10 +46,12 @@ import java.util.Map;
 
 
 public class AnalysisCreate extends ActionBarActivity {
-
-    EditText idText,nameText,startTimeText,endTimeText,facilityCostText,otherCostText,incomeText,remarkText;
+    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetMembers";
+    private ArrayList<String> list = new ArrayList<String>();
+    EditText idText,nameText,startTimeText,endTimeText,facilityCostText,otherCostText,incomeText,remarkText,memberAddName;
     Spinner priorityText;
     Button memberAdd;
+    AutoCompleteTextView memberAddId;
     ExpandableListView memberList;
     private String[] priority = {"1","2","3","4","5"};
     private ArrayAdapter<String> priorityList;
@@ -98,17 +115,15 @@ public class AnalysisCreate extends ActionBarActivity {
         memberAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AutoCompleteTextView memberAddId;
-                EditText memberAddName;
-                String[] COUNTRIES = new String[] {
-                        "Belgium", "France", "Italy", "Germany", "Spain"
-                };
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(AnalysisCreate.this, android.R.layout.simple_list_item_1,COUNTRIES);
+
+
+
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.memberadd, (ViewGroup) findViewById(R.id.memberadd));
                 memberAddId = (AutoCompleteTextView)layout.findViewById(R.id.memberAddIdText);
+                new getMembers().execute();
+
                 memberAddName = (EditText)layout.findViewById(R.id.memberAddNameText);
-                memberAddId.setAdapter(adapter);
                 memberAddName.setCursorVisible(false);
                 memberAddName.setFocusable(false);
                 memberAddName.setFocusableInTouchMode(false);
@@ -184,5 +199,66 @@ public class AnalysisCreate extends ActionBarActivity {
             endTimeText.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear + 1)+"/"+String.valueOf(dayOfMonth));
         }
     };
+
+    private class getMembers extends AsyncTask<String, Void, String> {
+
+        private String error;
+        String data = "";
+        private ProgressDialog dialog = new ProgressDialog(AnalysisCreate.this);
+
+        protected void onPreExecute(){
+            dialog.setMessage("Please wait..");
+            dialog.show();
+
+        }
+
+        protected void onPostExecute(String str){
+            try {
+                JSONArray object = new JSONArray(str);
+                for(int i = 0; i < object.length(); i++){
+                    String item = object.getJSONObject(i).getString("id")+ " " + object.getJSONObject(i).getString("name");
+                    list.add(item);
+                }
+                ArrayAdapter listAdapter = new ArrayAdapter(AnalysisCreate.this,android.R.layout.simple_dropdown_item_1line, list);
+                memberAddId.setAdapter(listAdapter);
+                memberAddId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String[] str = parent.getItemAtPosition(position).toString().split(" ");
+                        memberAddId.setText(str[0]);
+                        memberAddName.setText(str[1]);
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            dialog.dismiss();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet(serverUrl);
+                HttpResponse response = client.execute(get);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer result = new StringBuffer();
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result.append(line);
+                }
+                String str = result.toString();
+                return str;
+
+
+            } catch (Exception ex) {
+                error = ex.getMessage();
+                Log.e("ProjectActivity Error",error);
+            }
+
+            return null;
+        }
+
+    }
 
 }

@@ -6,40 +6,34 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/memberadd">
+        android:layout_height="fill_parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="人員代號:"
-            android:id="@+id/memberAddId" />
+            android:id="@+id/memberId" />
 
-        <AutoCompleteTextView
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/memberAddIdText"
-            android:completionThreshold="1"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/memberIdText"
+            android:layout_weight="0.5" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="人員名稱:"
-            android:id="@+id/memberAddName" />
+            android:id="@+id/memberName" />
 
-        <EditText
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/memberAddNameText" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/memberNameText"
+            android:layout_weight="0.5" />
     </LinearLayout>
 </LinearLayout>

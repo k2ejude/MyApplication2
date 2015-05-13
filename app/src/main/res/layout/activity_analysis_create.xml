@@ -191,12 +191,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <ExpandableListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/memberList"
-            android:layout_below="@+id/memberAdd" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,6 +198,12 @@
             android:id="@+id/memberAdd"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
+
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/memberList"
+            android:layout_below="@+id/memberAdd" />
 
     </RelativeLayout>
 
