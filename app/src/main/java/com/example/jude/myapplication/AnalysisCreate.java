@@ -59,9 +59,10 @@ public class AnalysisCreate extends ActionBarActivity {
     private int sYear,sMonth,sDay,eYear,eMonth,eDay;
     private SimpleExpandableListAdapter memberListAdapter;
     private String[] group = {"人員資料"};
-    private String[][][] child = {
-            {{"1","張三"},{"2","李四"},{"3","小五"},{"4","王六"},{"5","七爺"},{"6","八爺"}} //人員資料
-    };
+//    private String[][][] child = {
+//            {{"1","張三"},{"2","李四"},{"3","小五"},{"4","王六"},{"5","七爺"},{"6","八爺"}} //人員資料
+//    };
+    private ArrayList<ArrayList<ArrayList<String>>> child = new ArrayList<ArrayList<ArrayList<String>>>();
     List<Map<String,String>> groupData = new ArrayList<Map<String,String>>();
     List<List<Map<String,String>>> childData = new ArrayList<List<Map<String,String>>>();
 
@@ -76,6 +77,11 @@ public class AnalysisCreate extends ActionBarActivity {
         priorityList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priorityText.setAdapter(priorityList);
 
+        GroupList();
+    }
+
+    private void GroupList(){
+
         for(int i=0; i<group.length; i++ ){
             Map<String,String> groupMap = new HashMap<String,String>();
             groupData.add(groupMap);
@@ -83,13 +89,15 @@ public class AnalysisCreate extends ActionBarActivity {
 
 
             List<Map<String,String>> childlist = new ArrayList<Map<String,String>>();
-            for(int j = 0; j < child[i].length ; j++){
+            for(int j = 0; j < child.get(i).toArray().length ; j++){
                 Map<String,String> childMap = new HashMap<String,String>();
-                childMap.put("Id",child[i][j][0]);
-                childMap.put("Name",child[i][j][1]);
+                childMap.put("Id",child.get(i).get(j).get(0));
+                childMap.put("Name",child.get(i).get(j).get(1));
                 childlist.add(childMap);
             }
             childData.add(childlist);
+
+
         }
         memberListAdapter = new SimpleExpandableListAdapter(AnalysisCreate.this,
                 groupData, R.layout.membergroup,new String[]{"Member"},new int[]{R.id.memberGroup },
@@ -111,13 +119,10 @@ public class AnalysisCreate extends ActionBarActivity {
         priorityText = (Spinner)findViewById(R.id.priorityText);
         memberAdd = (Button)findViewById(R.id.memberAdd);
         memberList = (ExpandableListView)findViewById(R.id.memberList);
-
+        memberList.setChildIndicator(null);
         memberAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.memberadd, (ViewGroup) findViewById(R.id.memberadd));
                 memberAddId = (AutoCompleteTextView)layout.findViewById(R.id.memberAddIdText);
@@ -129,7 +134,18 @@ public class AnalysisCreate extends ActionBarActivity {
                 memberAddName.setFocusableInTouchMode(false);
                 Dialog dialog = new AlertDialog.Builder(AnalysisCreate.this).setTitle("新增人員")
                         .setView(layout)
-                        .setPositiveButton("確認",null)
+                        .setPositiveButton("確認",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                memberAddId = (AutoCompleteTextView)((AlertDialog)dialog).findViewById(R.id.memberAddIdText);
+                                memberAddName = (EditText)((AlertDialog)dialog).findViewById(R.id.memberAddNameText);
+                                ArrayList<String> data = new ArrayList<String>();
+                                data.add(memberAddId.getText().toString());
+                                data.add(memberAddName.getText().toString());
+                                child.get(0).add(data);
+                                GroupList();
+                            }
+                        })
                         .setNegativeButton("取消",null)
                         .show();
             }
@@ -213,6 +229,7 @@ public class AnalysisCreate extends ActionBarActivity {
         }
 
         protected void onPostExecute(String str){
+            list = new ArrayList<String>();
             try {
                 JSONArray object = new JSONArray(str);
                 for(int i = 0; i < object.length(); i++){
