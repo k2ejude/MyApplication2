@@ -104,7 +104,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/priorityText"
             android:focusable="false"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:spinnerMode="dialog" />
 
     </LinearLayout>
 
@@ -185,5 +186,25 @@
             android:ems="10"
             android:id="@+id/remarkText" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/memberList"
+            android:layout_below="@+id/memberAdd" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新增人員"
+            android:id="@+id/memberAdd"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>
