@@ -5,13 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.InputFilter;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +19,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -36,12 +30,10 @@ import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -59,9 +51,6 @@ public class AnalysisCreate extends ActionBarActivity {
     private int sYear,sMonth,sDay,eYear,eMonth,eDay;
     private SimpleExpandableListAdapter memberListAdapter;
     private String[] group = {"人員資料"};
-//    private String[][][] child = {
-//            {{"1","張三"},{"2","李四"},{"3","小五"},{"4","王六"},{"5","七爺"},{"6","八爺"}} //人員資料
-//    };
     private ArrayList<ArrayList<ArrayList<String>>> child = new ArrayList<ArrayList<ArrayList<String>>>();
     List<Map<String,String>> groupData = new ArrayList<Map<String,String>>();
     List<List<Map<String,String>>> childData = new ArrayList<List<Map<String,String>>>();
@@ -81,29 +70,31 @@ public class AnalysisCreate extends ActionBarActivity {
     }
 
     private void GroupList(){
-
+        groupData = new ArrayList<Map<String,String>>();
+        childData = new ArrayList<List<Map<String,String>>>();
         for(int i=0; i<group.length; i++ ){
             Map<String,String> groupMap = new HashMap<String,String>();
-            groupData.add(groupMap);
             groupMap.put("Member", group[i]);
+            groupData.add(groupMap);
 
 
             List<Map<String,String>> childlist = new ArrayList<Map<String,String>>();
-            for(int j = 0; j < child.get(i).toArray().length ; j++){
-                Map<String,String> childMap = new HashMap<String,String>();
-                childMap.put("Id",child.get(i).get(j).get(0));
-                childMap.put("Name",child.get(i).get(j).get(1));
-                childlist.add(childMap);
+            if(child.size() != 0){
+                for(int j = 0; j < child.get(i).toArray().length ; j++){
+                    Map<String,String> childMap = new HashMap<String,String>();
+                    childMap.put("Id",child.get(i).get(j).get(0));
+                    childMap.put("Name",child.get(i).get(j).get(1));
+                    childlist.add(childMap);
+                }
             }
             childData.add(childlist);
-
-
         }
+
         memberListAdapter = new SimpleExpandableListAdapter(AnalysisCreate.this,
                 groupData, R.layout.membergroup,new String[]{"Member"},new int[]{R.id.memberGroup },
                 childData, R.layout.memberlist, new String[]{"Id","Name"},new int[]{R.id.memberIdText,R.id.memberNameText }
         );
-
+        memberListAdapter.notifyDataSetChanged();
         memberList.setAdapter(memberListAdapter);
     }
 
@@ -119,7 +110,25 @@ public class AnalysisCreate extends ActionBarActivity {
         priorityText = (Spinner)findViewById(R.id.priorityText);
         memberAdd = (Button)findViewById(R.id.memberAdd);
         memberList = (ExpandableListView)findViewById(R.id.memberList);
-        memberList.setChildIndicator(null);
+        memberList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, final int childPosition, long id) {
+                Dialog dialog = new AlertDialog.Builder(AnalysisCreate.this).setTitle("刪除").setMessage("確定要刪除嗎?").
+                        setPositiveButton("確定",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                child.get(0).remove(childPosition);
+                                GroupList();
+
+                            }
+                        }).
+                        setNegativeButton("取消",null).
+                        show();
+                return false;
+            }
+        });
+
         memberAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,10 +149,28 @@ public class AnalysisCreate extends ActionBarActivity {
                                 memberAddId = (AutoCompleteTextView)((AlertDialog)dialog).findViewById(R.id.memberAddIdText);
                                 memberAddName = (EditText)((AlertDialog)dialog).findViewById(R.id.memberAddNameText);
                                 ArrayList<String> data = new ArrayList<String>();
-                                data.add(memberAddId.getText().toString());
-                                data.add(memberAddName.getText().toString());
-                                child.get(0).add(data);
-                                GroupList();
+                                if(!memberAddId.getText().toString().isEmpty())
+                                {
+                                    data.add(memberAddId.getText().toString());
+                                    data.add(memberAddName.getText().toString());
+                                    if(child.size() == 0){
+                                        child.add(new ArrayList<ArrayList<String>>());
+                                        child.get(0).add(data);
+                                    }
+                                    else{
+                                        Boolean check = false;//false表示ChildData內沒有資料
+                                        for(int i = 0; i<childData.get(0).size();i++){
+                                            String childCheck = childData.get(0).get(i).get("Id").toString();
+                                            if(memberAddId.getText().toString().equals(childCheck))
+                                                check = true;
+                                        }
+                                        if(!check)
+                                            child.get(0).add(data);
+                                    }
+
+                                    GroupList();
+                                }
+
                             }
                         })
                         .setNegativeButton("取消",null)
