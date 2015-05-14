@@ -5,11 +5,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -39,6 +42,7 @@ import java.util.Map;
 
 public class AnalysisCreate extends ActionBarActivity {
     private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetMembers";
+    private String serverUrlPost = "http://10.0.3.2:60576/PMS/api/AndroidApi/Analysis/";
     private ArrayList<String> list = new ArrayList<String>();
     EditText idText,nameText,startTimeText,endTimeText,facilityCostText,otherCostText,incomeText,remarkText,memberAddName;
     Spinner priorityText;
@@ -67,6 +71,49 @@ public class AnalysisCreate extends ActionBarActivity {
         priorityText.setAdapter(priorityList);
 
         GroupList();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.memu_create, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_create) {
+            String cId = idText.getText().toString();
+            String cName = nameText.getText().toString();
+            String cStartTime = startTimeText.getText().toString();
+            String cEndTime = endTimeText.getText().toString();
+            String cPriority = priorityText.getSelectedItem().toString();
+            String cFacility = facilityCostText.getText().toString();
+            String cOther = otherCostText.getText().toString();
+            String cIncome = incomeText.getText().toString();
+            String cRemark = remarkText.getText().toString();
+            String cmembers = child.toString();
+            serverUrlPost = serverUrlPost + cId + "?name="+cName+"&startTime="+cStartTime+"&endTime="+cEndTime+"&priority="+
+                    cPriority+"&facility="+cFacility+"&other="+cOther+"&income="+cIncome+"&remark="+cRemark;
+            if(!child.isEmpty())
+            {
+                for (int i = 0;i<child.get(0).size();i++){
+                    serverUrlPost = serverUrlPost+"&memberId="+child.get(0).get(i).get(0).toString();
+                }
+            }
+
+            Log.d("Test",serverUrlPost);
+            new createAnalysis().execute();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void GroupList(){
@@ -284,6 +331,55 @@ public class AnalysisCreate extends ActionBarActivity {
             try {
                 DefaultHttpClient client = new DefaultHttpClient();
                 HttpGet get = new HttpGet(serverUrl);
+                HttpResponse response = client.execute(get);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer result = new StringBuffer();
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    result.append(line);
+                }
+                String str = result.toString();
+                return str;
+
+
+            } catch (Exception ex) {
+                error = ex.getMessage();
+                Log.e("ProjectActivity Error",error);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class createAnalysis extends AsyncTask<String, Void, String> {
+
+        private String error;
+        String data = "";
+        private ProgressDialog dialog = new ProgressDialog(AnalysisCreate.this);
+
+        protected void onPreExecute(){
+            dialog.setMessage("Please wait..");
+            dialog.show();
+
+        }
+
+        protected void onPostExecute(String str){
+            dialog.dismiss();
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", str);
+            intent.putExtras(bundle);
+            intent.setClass(AnalysisCreate.this, AnalysisDetailActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet(serverUrlPost);
                 HttpResponse response = client.execute(get);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer result = new StringBuffer();
