@@ -59,6 +59,7 @@ public class AnalysisCreate extends ActionBarActivity {
     List<Map<String,String>> groupData = new ArrayList<Map<String,String>>();
     List<List<Map<String,String>>> childData = new ArrayList<List<Map<String,String>>>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,8 +109,8 @@ public class AnalysisCreate extends ActionBarActivity {
                 }
             }
 
-            Log.d("Test",serverUrlPost);
             new createAnalysis().execute();
+
             return true;
         }
 
@@ -365,7 +366,6 @@ public class AnalysisCreate extends ActionBarActivity {
         }
 
         protected void onPostExecute(String str){
-            dialog.dismiss();
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString("id", str);
@@ -373,6 +373,7 @@ public class AnalysisCreate extends ActionBarActivity {
             intent.setClass(AnalysisCreate.this, AnalysisDetailActivity.class);
             startActivity(intent);
             finish();
+            dialog.dismiss();
         }
 
         @Override
