@@ -32,6 +32,7 @@ public class AnalysisDetailActivity extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("id");
+        Log.d("Test",id);
         serverUrl = serverUrl+id;
 
         analysisDetail = (ListView) findViewById(R.id.analysisDetail);

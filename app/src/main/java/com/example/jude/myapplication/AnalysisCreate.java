@@ -368,7 +368,7 @@ public class AnalysisCreate extends ActionBarActivity {
         protected void onPostExecute(String str){
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
-            bundle.putString("id", str);
+            bundle.putString("id", str.replace("\"",""));
             intent.putExtras(bundle);
             intent.setClass(AnalysisCreate.this, AnalysisDetailActivity.class);
             startActivity(intent);
@@ -389,6 +389,7 @@ public class AnalysisCreate extends ActionBarActivity {
                     result.append(line);
                 }
                 String str = result.toString();
+                Log.d("Test",str);
                 return str;
 
 

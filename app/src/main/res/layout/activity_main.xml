@@ -2,60 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1.0">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/project"
-            android:src="@mipmap/ic_launcher"
-            android:layout_weight="1.0"
-            android:layout_gravity="center" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="專案總覽"
-            android:id="@+id/projectText"
-            android:layout_weight="2.0"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textSize="50dp"
-            android:clickable="true"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1.0">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="專案分析"
-            android:id="@+id/analysisText"
-            android:layout_weight="2.0"
-            android:layout_gravity="center"
-            android:textSize="50dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="25dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/analysis"
-            android:src="@mipmap/analysis"
-            android:layout_weight="1.0"
-            android:layout_gravity="center|right" />
-    </LinearLayout>
-
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
