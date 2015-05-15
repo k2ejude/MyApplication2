@@ -10,9 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ValueFormatter;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,6 +26,7 @@ import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -32,26 +37,36 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mChart = (HorizontalBarChart) findViewById(R.id.chart1);
-        mChart.setDrawBarShadow(false);
-        mChart.setDrawValueAboveBar(true);
+        mChart.setDrawValueAboveBar(false);
         mChart.setDescription("");
-        mChart.setMaxVisibleValueCount(60);
-        mChart.setPinchZoom(false);
-        mChart.setDrawGridBackground(false);
+        mChart.setDrawValueAboveBar(true);
+       mChart.setPinchZoom(false);
         mChart.animateY(2500);
-
-//        ArrayList<String> xVals = new ArrayList<String>();
-//        for(int i =0;i<12;i++){
-//            xVals.add(String.valueOf(i+1));
-//        }
-//
-//        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-//        for(int i=0;i<12;i++){
-//            yVals1.add(new BarEntry((i+1)*10,i));
-//        }
+        mChart.getLegend().setEnabled(false);
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.setValueFormatter(new PercentFormatter());
+        YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setValueFormatter(new PercentFormatter());
+//        YAxis yaxis = new YAxis();
+//        yaxis.setAxisMaxValue(100);
+//        yaxis.setValueFormatter(new PercentFormatter());
 
         new getMain().execute();
 
+    }
+
+    public class PercentFormatter implements ValueFormatter {
+
+        protected DecimalFormat mFormat;
+
+        public PercentFormatter() {
+            mFormat = new DecimalFormat();
+        }
+
+        @Override
+        public String getFormattedValue(float value) {
+            return mFormat.format(value) + " %";
+        }
     }
 
     @Override
@@ -85,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetProjectsNain";
+    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetProjectsMain";
 
     private class getMain extends AsyncTask<String, Void, String> {
 
@@ -107,11 +122,16 @@ public class MainActivity extends ActionBarActivity {
                 JSONArray object = new JSONArray(str);
                 for(int i = 0; i < object.length(); i++){
                     xVals.add(object.getJSONObject(i).getString("id"));
-                    yVals1.add(new BarEntry(Float.parseFloat(object.getJSONObject(i).getString("total").replace("%","")),i));
+                    Float yVal = Float.parseFloat(object.getJSONObject(i).getString("total").replace("%",""));
+                    if(yVal == 0)
+                        yVal = 12f * i;//測試假資料
+                    yVals1.add(new BarEntry(yVal,i));
                 }
-                BarDataSet set1 = new BarDataSet(yVals1,"first");
-                set1.setBarSpacePercent(35f);
 
+                BarDataSet set1 = new BarDataSet(yVals1,"first");
+                set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                set1.setBarSpacePercent(35f);
+                set1.setValueFormatter(new PercentFormatter());
                 ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
                 dataSets.add(set1);
 
