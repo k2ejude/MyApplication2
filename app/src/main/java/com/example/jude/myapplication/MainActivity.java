@@ -2,12 +2,18 @@ package com.example.jude.myapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -32,21 +38,27 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
     protected HorizontalBarChart mChart;
+    private TableLayout table;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mChart = (HorizontalBarChart) findViewById(R.id.chart1);
+        table = (TableLayout)findViewById(R.id.table);
         mChart.setDrawValueAboveBar(false);
         mChart.setDescription("");
         mChart.setDrawValueAboveBar(true);
-       mChart.setPinchZoom(false);
+        mChart.setPinchZoom(false);
         mChart.animateY(2500);
         mChart.getLegend().setEnabled(false);
         YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.setAxisMaxValue(100f);
         leftAxis.setValueFormatter(new PercentFormatter());
         YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setAxisMaxValue(100f);
         rightAxis.setValueFormatter(new PercentFormatter());
+//        XAxis xAxis = mChart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        YAxis yaxis = new YAxis();
 //        yaxis.setAxisMaxValue(100);
 //        yaxis.setValueFormatter(new PercentFormatter());
@@ -126,6 +138,34 @@ public class MainActivity extends ActionBarActivity {
                     if(yVal == 0)
                         yVal = 12f * i;//測試假資料
                     yVals1.add(new BarEntry(yVal,i));
+
+                    TableRow tableRow = new TableRow(MainActivity.this);
+                    TextView text1 = new TextView(MainActivity.this);
+                    text1.setText(object.getJSONObject(i).getString("id"));
+                    text1.setGravity(Gravity.CENTER);
+                    text1.setBackgroundColor(Color.rgb(255, 255, 255));
+
+                    TextView text2 = new TextView(MainActivity.this);
+                    text2.setText(object.getJSONObject(i).getString("name"));
+                    text2.setGravity(Gravity.CENTER);
+                    text2.setBackgroundColor(Color.rgb(255, 255, 255));
+
+                    TextView text3 = new TextView(MainActivity.this);
+                    text3.setText(object.getJSONObject(i).getString("day"));
+                    text3.setGravity(Gravity.CENTER);
+                    text3.setBackgroundColor(Color.rgb(255, 255, 255));
+                    TextView text4 = new TextView(MainActivity.this);
+                    text4.setText(object.getJSONObject(i).getString("endTime"));
+                    text4.setGravity(Gravity.CENTER);
+                    text4.setBackgroundColor(Color.rgb(255, 255, 255));
+                    TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(2,2,2,2);
+
+                    tableRow.addView(text1,params);
+                    tableRow.addView(text2,params);
+                    tableRow.addView(text3,params);
+                    tableRow.addView(text4,params);
+                    table.addView(tableRow);
                 }
 
                 BarDataSet set1 = new BarDataSet(yVals1,"first");
