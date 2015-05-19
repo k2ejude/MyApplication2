@@ -19,7 +19,7 @@ public class GcmIntentService extends IntentService {
     NotificationCompat.Builder builder;
     static final String TAG = "GCMDemo";
 
-    public GcmIntentService(String name) {
+    public GcmIntentService() {
         super("413376427270");
     }
 

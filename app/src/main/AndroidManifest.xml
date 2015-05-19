@@ -19,7 +19,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,21 +28,24 @@
         </activity>
         <activity
             android:name=".ProjectActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jude.myapplication.MainActivity" />
         </activity>
         <activity
             android:name=".ProjectDetailActivity"
-            android:parentActivityName=".ProjectActivity" >
+            android:parentActivityName=".ProjectActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jude.myapplication.ProjectActivity" />
         </activity>
         <activity
             android:name=".AnalysisActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jude.myapplication.MainActivity" />
@@ -49,7 +53,8 @@
         <activity
             android:name=".AnalysisDetailActivity"
             android:label="@string/title_activity_analysis_detail"
-            android:parentActivityName=".AnalysisActivity" >
+            android:parentActivityName=".AnalysisActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jude.myapplication.AnalysisActivity" />
@@ -57,7 +62,8 @@
         <activity
             android:name=".AnalysisCreate"
             android:label="@string/title_activity_analysis_create"
-            android:parentActivityName=".AnalysisActivity" >
+            android:parentActivityName=".AnalysisActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jude.myapplication.AnalysisActivity" />
@@ -70,7 +76,7 @@
                 <category android:name="com.example.jude.myapplication" />
             </intent-filter>
         </receiver>
-        <!--<service android:name=".GcmIntentService" />-->
+        <service android:name=".GcmIntentService" />
     </application>
 
 </manifest>
