@@ -243,7 +243,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetProjectsMain";
+    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetProjectsMain";
 
     private class getMain extends AsyncTask<String, Void, String> {
 

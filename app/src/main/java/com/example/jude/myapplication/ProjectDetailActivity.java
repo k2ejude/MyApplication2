@@ -1,13 +1,10 @@
 package com.example.jude.myapplication;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -28,7 +25,7 @@ import java.util.ArrayList;
 public class ProjectDetailActivity extends ActionBarActivity {
 
     String id = "";
-    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetProjectDetail/";
+    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetProjectDetail/";
     TextView projectIdText,projectNameText,projectMemberText,projectPriorityText,projectStartTimeText,projectEndTimeText,projectFacilityText,projectOtherText,projectIncomeText,projectLossText;
     BarChart chart;
     @Override

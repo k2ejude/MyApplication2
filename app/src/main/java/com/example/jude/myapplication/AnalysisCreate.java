@@ -41,8 +41,8 @@ import java.util.Map;
 
 
 public class AnalysisCreate extends ActionBarActivity {
-    private String serverUrl = "http://10.0.3.2:60576/PMS/api/AndroidApi/GetMembers";
-    private String serverUrlPost = "http://10.0.3.2:60576/PMS/api/AndroidApi/Analysis/";
+    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetMembers";
+    private String serverUrlPost = "http://192.168.2.110:60576/PMS/api/AndroidApi/Analysis/";
     private ArrayList<String> list = new ArrayList<String>();
     EditText idText,nameText,startTimeText,endTimeText,facilityCostText,otherCostText,incomeText,remarkText,memberAddName;
     Spinner priorityText;
