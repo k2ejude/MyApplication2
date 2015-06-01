@@ -14,14 +14,16 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="人員代號:"
-            android:id="@+id/memberAddId" />
+            android:id="@+id/memberAddId"
+            android:textColor="#ff000000" />
 
         <AutoCompleteTextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/memberAddIdText"
             android:completionThreshold="1"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="#ff000000" />
 
     </LinearLayout>
 
@@ -35,11 +37,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="人員名稱:"
-            android:id="@+id/memberAddName" />
+            android:id="@+id/memberAddName"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/memberAddNameText" />
+            android:id="@+id/memberAddNameText"
+            android:textColor="#ff000000"
+            android:textColorLink="#ff000000" />
     </LinearLayout>
 </LinearLayout>

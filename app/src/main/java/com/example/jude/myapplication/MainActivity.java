@@ -19,10 +19,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ValueFormatter;
 import com.google.android.gms.common.ConnectionResult;
@@ -58,13 +60,12 @@ public class MainActivity extends ActionBarActivity {
     AtomicInteger msgId = new AtomicInteger();
     Context context;
     String regid;
-
+    PieChart pieChart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mChart = (HorizontalBarChart) findViewById(R.id.chart1);
+        mChart = (HorizontalBarChart)findViewById(R.id.chart1);
         table = (TableLayout)findViewById(R.id.table);
         mChart.setDrawValueAboveBar(false);
         mChart.setDescription("");
@@ -242,8 +243,8 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetProjectsMain";
+    //    10.0.3.2
+    private String serverUrl = "http://192.168.2.106:60576/PMS/api/AndroidApi/GetProjectsMain";
 
     private class getMain extends AsyncTask<String, Void, String> {
 
@@ -261,6 +262,11 @@ public class MainActivity extends ActionBarActivity {
 
             ArrayList<String> xVals = new ArrayList<String>();
             ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+            ArrayList<Entry> list = new ArrayList<Entry>();
+            list.add(new Entry(1F,0));
+            list.add(new Entry(1F,1));
+
+
             try {
                 JSONArray object = new JSONArray(str);
                 for(int i = 0; i < object.length(); i++){
@@ -275,22 +281,29 @@ public class MainActivity extends ActionBarActivity {
                     text1.setText(object.getJSONObject(i).getString("id"));
                     text1.setGravity(Gravity.CENTER);
                     text1.setBackgroundColor(Color.rgb(255, 255, 255));
+                    text1.setTextColor(Color.rgb(0, 0, 0));
 
                     TextView text2 = new TextView(MainActivity.this);
                     text2.setText(object.getJSONObject(i).getString("name"));
                     text2.setGravity(Gravity.CENTER);
                     text2.setBackgroundColor(Color.rgb(255, 255, 255));
+                    text2.setTextColor(Color.rgb(0, 0, 0));
 
                     TextView text3 = new TextView(MainActivity.this);
                     text3.setText(object.getJSONObject(i).getString("day"));
                     text3.setGravity(Gravity.CENTER);
                     text3.setBackgroundColor(Color.rgb(255, 255, 255));
+                    text3.setTextColor(Color.rgb(0, 0, 0));
+
                     TextView text4 = new TextView(MainActivity.this);
                     text4.setText(object.getJSONObject(i).getString("endTime"));
                     text4.setGravity(Gravity.CENTER);
                     text4.setBackgroundColor(Color.rgb(255, 255, 255));
+                    text4.setTextColor(Color.rgb(0, 0, 0));
+
                     TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
                     params.setMargins(2,2,2,2);
+                    params.weight = 0.2F;
 
                     tableRow.addView(text1,params);
                     tableRow.addView(text2,params);

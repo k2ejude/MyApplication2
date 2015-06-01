@@ -13,14 +13,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案代號:"
             android:id="@+id/analysisId"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/analysisIdText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,14 +30,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案名稱:"
             android:id="@+id/analysisName"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/analysisNameText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
     </TableRow>
 
     <TableRow
@@ -48,14 +52,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="預期損益:"
             android:id="@+id/analysisLoss"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/analysisLossText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,14 +69,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="分析時間:"
             android:id="@+id/analysisTime"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/analysisTimeText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
     </TableRow>
 
     <TableRow
@@ -82,12 +90,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="分析內容:"
-            android:id="@+id/analysisContent" />
+            android:id="@+id/analysisContent"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/analysisContentText" />
+            android:id="@+id/analysisContentText"
+            android:textColor="#ff000000" />
     </TableRow>
 </TableLayout>

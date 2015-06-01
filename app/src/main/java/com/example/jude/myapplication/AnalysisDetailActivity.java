@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 
 public class AnalysisDetailActivity extends ActionBarActivity {
-    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetAnalysisDetail/";
+    private String serverUrl = "http://192.168.2.106:60576/PMS/api/AndroidApi/GetAnalysisDetail/";
     private ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     private SimpleAdapter listAdapter;
     private ListView analysisDetail;

@@ -13,14 +13,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案代號:"
             android:id="@+id/id"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/idText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,14 +30,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案名稱:"
             android:id="@+id/name"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/nameText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
     </TableRow>
 
     <TableRow
@@ -48,14 +52,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案收入:"
             android:id="@+id/income"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/incomeText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,14 +69,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案成本:"
             android:id="@+id/cost"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/costText"
-            android:layout_weight="1.0" />
+            android:layout_weight="1.0"
+            android:textColor="#ff000000" />
     </TableRow>
 
     <TableRow
@@ -82,12 +90,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案損益:"
-            android:id="@+id/loss" />
+            android:id="@+id/loss"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/lossText" />
+            android:id="@+id/lossText"
+            android:textColor="#ff000000" />
     </TableRow>
 </TableLayout>

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class ProjectDetailActivity extends ActionBarActivity {
 
     String id = "";
-    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetProjectDetail/";
+    private String serverUrl = "http://192.168.2.106:60576/PMS/api/AndroidApi/GetProjectDetail/";
     TextView projectIdText,projectNameText,projectMemberText,projectPriorityText,projectStartTimeText,projectEndTimeText,projectFacilityText,projectOtherText,projectIncomeText,projectLossText;
     BarChart chart;
     @Override
@@ -81,7 +81,7 @@ public class ProjectDetailActivity extends ActionBarActivity {
                 projectFacilityText.setText(object.getString("facility").toString());
                 projectOtherText.setText(object.getString("other").toString());
                 projectIncomeText.setText(object.getString("income").toString());
-                projectLossText.setText(object.getString("loss").toString());
+                projectLossText.setText(!object.getString("loss").toString().equals("null") ? object.getString("loss").toString() : "0");
 
                 ArrayList<BarEntry> valsComp1 = new ArrayList<BarEntry>();
 
@@ -121,6 +121,8 @@ public class ProjectDetailActivity extends ActionBarActivity {
                 BarData data = new BarData(xVals, dataSets);
                 chart.setData(data);
                 chart.setDrawGridBackground(true);
+                chart.setDescription("");
+                chart.getLegend().setEnabled(false);
                 chart.invalidate();
             } catch (JSONException e) {
                 e.printStackTrace();

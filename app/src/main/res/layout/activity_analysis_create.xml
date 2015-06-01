@@ -18,15 +18,16 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="0dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp" />
+            android:layout_marginTop="0dp"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/idText"
             android:layout_toRightOf="@+id/id"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,16 +36,15 @@
             android:text="專案名稱:"
             android:id="@+id/name"
             android:layout_below="@+id/idText"
-            android:layout_alignParentStart="true" />
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nameText"
             android:layout_below="@+id/idText"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/name"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,14 +57,16 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="開始時間:"
-            android:id="@+id/startTime" />
+            android:id="@+id/startTime"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/startTimeText"
-            android:inputType="date" />
+            android:inputType="date"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,14 +79,16 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="結束時間:"
-            android:id="@+id/endTime" />
+            android:id="@+id/endTime"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/endTimeText" />
+            android:id="@+id/endTimeText"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
     <LinearLayout
@@ -97,7 +101,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="優先權:"
-            android:id="@+id/priority" />
+            android:id="@+id/priority"
+            android:textColor="#ff000000" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -120,7 +125,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="固定成本:"
-            android:id="@+id/facilitycost" />
+            android:id="@+id/facilitycost"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -128,14 +134,16 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/facilityCostText"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:textColor="#ff000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="其他成本:"
-            android:id="@+id/otherCost" />
+            android:id="@+id/otherCost"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -143,7 +151,8 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/otherCostText"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
     <LinearLayout
@@ -156,7 +165,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="預期收益:"
-            android:id="@+id/income" />
+            android:id="@+id/income"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -164,7 +174,8 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/incomeText"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
     <LinearLayout
@@ -177,14 +188,16 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="專案內容:"
-            android:id="@+id/remark" />
+            android:id="@+id/remark"
+            android:textColor="#ff000000" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/remarkText" />
+            android:id="@+id/remarkText"
+            android:textColor="#ff000000" />
     </LinearLayout>
 
     <RelativeLayout
@@ -197,7 +210,7 @@
             android:text="新增人員"
             android:id="@+id/memberAdd"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:textColor="#ff000000" />
 
         <ExpandableListView
             android:layout_width="match_parent"

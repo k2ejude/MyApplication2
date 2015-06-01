@@ -30,7 +30,8 @@ public class ProjectActivity extends ActionBarActivity {
     private ListView listView;
     private ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     private SimpleAdapter listAdapter;
-    private String serverUrl = "http://192.168.2.110:60576/PMS/api/AndroidApi/GetProjects";
+//    10.0.3.2
+    private String serverUrl = "http://192.168.2.106:60576/PMS/api/AndroidApi/GetProjects";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class ProjectActivity extends ActionBarActivity {
                     item.put("id", object.getJSONObject(i).getString("id"));
                     item.put("name", object.getJSONObject(i).getString("name"));
                     item.put("member", object.getJSONObject(i).getString("member"));
-                    item.put("loss", object.getJSONObject(i).getString("loss"));
+                    item.put("loss", !object.getJSONObject(i).getString("loss").equals("null") ? object.getJSONObject(i).getString("loss") : "0");
                     item.put("priority", object.getJSONObject(i).getString("priority"));
                     item.put("time", object.getJSONObject(i).getString("time"));
                     list.add(item);
